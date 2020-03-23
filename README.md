@@ -1,6 +1,6 @@
 # cache
 
-> Key Value data store for sessions using in memory or Redis
+> Key Value data store with TTL in either Redis or in-memory
 
 ### Usage
 
@@ -9,32 +9,32 @@ import Cache from "@jolzee/cache";
 
 // for in-memory cache
 const cache = new Cache({
-	defaultTimeToLiveMin: 20
+    defaultTimeToLiveMin: 20
 });
 
 // for Redis backed cache
 const cache = new Cache({
-	redisHost: "redis-host"
-	redisPort: 6379
-	redisPassword: "your-password"
-	defaultTimeToLiveMin: 20
+    redisHost: "redis-host"
+    redisPort: 6379
+    redisPassword: "your-password"
+    defaultTimeToLiveMin: 20
 });
 
 cache.set("12345", "😁");
 cache.get("12345").then(val => {
-	console.log(val); // 😁
+    console.log(val); // 😁
 });
 
 cache.del("12345");
 cache.get("12345").then(val => {
-	console.log(val); // null
+    console.log(val); // null
 });
 
-cache.set("22222", "🚀", 5);
+cache.set("22222", "🚀", 5); // cache for 5 min not 20
 
 // wait more than 5 min
 cache.get("22222").then(val => {
-	console.log(val); // null
+    console.log(val); // null
 });
 ```
 
@@ -73,8 +73,7 @@ In Memory - `all required`
 
 ### Builds
 
-`cache` is compiled as a collection of [CommonJS](http://webpack.github.io/docs/commonjs.html) modules & [ES2015 modules](http://www.2ality.com/2014/0
--9/es6-modules-final.html) for bundlers that support the `jsnext:main` or `module` field in package.json (Rollup, Webpack 2)
+`cache` is compiled as a collection of [CommonJS](http://www.commonjs.org/specs/modules/1.0/) modules & [ES2015 modules](https://2ality.com/2014/09/es6-modules-final.html) for bundlers that support the `jsnext:main` or `module` field in package.json (Rollup, Webpack 2)
 
 ### License
 
