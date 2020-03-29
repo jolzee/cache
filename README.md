@@ -20,6 +20,12 @@ const cache = new Cache({
     defaultTimeToLiveMin: 20
 });
 
+//Redis alternative
+const cache = new Cache({
+    redisUrl: "redis://user:password@redis-service.com:6379/"
+    defaultTimeToLiveMin: 20
+});
+
 cache.set("12345", "😁");
 cache.get("12345").then(val => {
     console.log(val); // 😁
