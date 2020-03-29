@@ -4,7 +4,15 @@ import InMemoryCache from "./inMemoryCache";
 class Cache {
   constructor(config) {
     this.defaultTimeToLiveMin = config.defaultTimeToLiveMin;
-    if ("redisHost" in config) {
+    if ("redisUrl" in config) {
+      this.store = new RedisCache(
+        null,
+        null,
+        null,
+        config.defaultTimeToLiveMin,
+        config.redisUrl
+      );
+    } else if ("redisHost" in config) {
       this.store = new RedisCache(
         config.redisHost,
         config.redisPort,
